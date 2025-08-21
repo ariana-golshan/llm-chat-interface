@@ -7,7 +7,7 @@ This project is still in its early stages and mainly built for learning purposes
 
 ## Tech Stack
 
-- **Frontend:** React, TailwindCSS
+- **Frontend:** React (JavaScript), TailwindCSS
 - **Backend:** FastAPI (Python)
 
 ---
@@ -25,7 +25,7 @@ This project is still in its early stages and mainly built for learning purposes
 ### 1. Clone the repository
 
 ```bash
-git clone https://github.com/USERNAME/chatgpt-clown.git
+git clone https://github.com/ariana-o0o/chatgpt-clown.git
 cd chatgpt-clown
 ```
 
