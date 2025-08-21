@@ -1,0 +1,36 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  table.chat-table {
+    @apply border-collapse w-full text-sm rounded-lg overflow-hidden my-4;
+  }
+
+  table.chat-table th {
+    @apply bg-gray-200 font-semibold text-start px-4 py-3 border-b border-gray-300;
+  }
+
+  table.chat-table td {
+    @apply px-4 py-3 border-gray-300;
+  }
+
+  table.chat-table tr:nth-child(even) {
+    @apply bg-gray-50;
+  }
+}
+
+@layer components {
+  .bot-message table {
+    @apply border-collapse w-full text-sm rounded-lg overflow-hidden my-4;
+  }
+  .bot-message th {
+    @apply bg-gray-200 font-semibold text-start px-4 py-3 border-b border-gray-300;
+  }
+  .bot-message td {
+    @apply px-4 py-3 border-gray-300;
+  }
+  .bot-message tr:nth-child(even) {
+    @apply bg-gray-50;
+  }
+}
