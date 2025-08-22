@@ -1,4 +1,4 @@
-# ChatGPT Clown
+# ChatGPT Clone
 
 A **practice project** for learning and experimenting with APIs, frontend, and backend development in general.  
 This project is still in its early stages and mainly built for learning purposes.
@@ -25,8 +25,8 @@ This project is still in its early stages and mainly built for learning purposes
 ### 1. Clone the repository
 
 ```bash
-git clone https://github.com/ariana-o0o/chatgpt-clown.git
-cd chatgpt-clown
+git clone https://github.com/ariana-o0o/chatgpt-clone.git
+cd chatgpt-clone
 ```
 
 ### 2. Frontend Setup
@@ -42,7 +42,7 @@ npm run dev
 ```bash
 cd backend
 pip install -r requirements.txt
-uvicorn main:app --reload
+uvicorn server:app --reload --port 8000
 ```
 
 ---

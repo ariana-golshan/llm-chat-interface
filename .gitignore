@@ -10,6 +10,8 @@
 *.sqlite3
 *.db
 
+openAImodels.json
+
 # ==================
 # Frontend (React/Vite)
 # ==================

@@ -1,36 +1,32 @@
-import { useRef, useState } from "react";
-import ModelDropdown from "./ModelDropdown";
+import ModelSelector from "./ModelSelector/ModelSelector";
 
 function Header({ chatStrted, selectedModel, setSelectedModel }) {
-  const [open, setOpen] = useState(false);
-  const buttonRef = useRef(null);
-  const models = ["GPT-4", "GPT-3.5", "gpt-4.1"];
+  const models = [
+    "gpt-3.5-turbo",
+    "gpt-4",
+    "gpt-4-turbo",
+    "gpt-4o-mini",
+    "gpt-4o",
+    "gpt-5",
+    "gpt-5-nano",
+    "gpt-5-mini",
+    "o1-mini",
+    "o3-mini",
+    "o4-mini",
+  ];
 
   return (
     <header>
       {/* Desktop header */}{" "}
       <div className="hidden md:flex bg-transparent px-2 py-1.5 justify-between w-full items-center pl-16 fixed top-0 z-10">
-        <button className="flex items-center justify-center gap-2 text-lg hover:bg-black/10 duration-200 px-2.5 py-1.5 rounded-lg">
-          <h3>ChatGPT</h3>
-          <div>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth={1.5}
-              stroke="#9E9E9E"
-              className="size-[18px]"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="m19.5 8.25-7.5 7.5-7.5-7.5"
-              />
-            </svg>
-          </div>
-        </button>
+        <ModelSelector
+          models={models}
+          selectedModel={selectedModel}
+          setSelectedModel={setSelectedModel}
+        />
 
         {chatStrted && (
+          // Share and Export button after the chat starts
           <div className="flex items-center justify-center gap-1 px-2">
             {" "}
             <button className="flex justify-center items-center gap-1.5 hover:bg-gray-200/80 py-2 px-3 duration-200 rounded-full">
@@ -87,41 +83,11 @@ function Header({ chatStrted, selectedModel, setSelectedModel }) {
             />
           </svg>
         </button>
-        <div className="relative inline-block">
-          <button
-            ref={buttonRef}
-            onClick={() => setOpen(!open)}
-            className="flex items-center justify-center gap-1 text-lg hover:bg-black/10 duration-200 px-2.5 py-1.5 rounded-lg"
-          >
-            <h3>{selectedModel}</h3>
-            <div>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth={1.5}
-                stroke="#9E9E9E"
-                className={`size-[18px] transition-transform duration-200 ${
-                  open ? "rotate-180" : ""
-                }`}
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="m19.5 8.25-7.5 7.5-7.5-7.5"
-                />
-              </svg>
-            </div>
-          </button>
-          <ModelDropdown
-            models={models}
-            selectedModel={selectedModel}
-            setSelectedModel={setSelectedModel}
-            open={open}
-            setOpen={setOpen}
-            buttonRef={buttonRef}
-          />
-        </div>
+        <ModelSelector
+          models={models}
+          selectedModel={selectedModel}
+          setSelectedModel={setSelectedModel}
+        />
         <div className="hover:bg-black/5 w-10 h-10 p-2.5 rounded-lg duration-100">
           <svg
             xmlns="http://www.w3.org/2000/svg"

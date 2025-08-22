@@ -63,7 +63,6 @@ function MainConversation({ chatStarted, setChatStarted, selectedModel }) {
             firstChunk = false;
           }
 
-          // نمایش کم‌کم متن در UI
           setMessages((prev) => [
             ...prev.filter((m) => m.id !== "streaming"),
             {
@@ -75,7 +74,6 @@ function MainConversation({ chatStarted, setChatStarted, selectedModel }) {
         }
       }
 
-      // بعد از اتمام استریم، می‌تونی id رو عادی کنیم
       setMessages((prev) =>
         prev.map((m) =>
           m.id === "streaming" ? { ...m, id: Date.now() + 1 } : m
