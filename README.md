@@ -1,35 +1,52 @@
 # ChatGPT Clone
 
-A **practice project** for learning and experimenting with APIs, frontend, and backend development in general.  
-This project is still in its early stages and mainly built for learning purposes.
+This is my attempt at building a ChatGPT-like application while learning web development. It's been a great project to understand how modern web apps work with APIs, databases, and real-time features.
+
+## What I Built
+
+- Chat interface that streams responses in real-time
+- Sidebar that shows chat history (you can switch between conversations)
+- Different AI models to choose from
+- Supports both English and Persian text
+- Messages are saved in a database so they persist
+- Responsive design that works on mobile
 
 ---
 
-## Tech Stack
+## Tech Stack I Used
 
-- **Frontend:** React (JavaScript), TailwindCSS
-- **Backend:** FastAPI (Python)
+**Frontend:**
+
+- React with JavaScript
+- TailwindCSS for styling
+- React Markdown for rendering responses
+
+**Backend:**
+
+- FastAPI (Python)
+- SQLite database
+- OpenAI API
 
 ---
 
-## Features
+## How to Run This
 
-- Frontend communicates with backend via API
-- Initial UI design using TailwindCSS
-- Separate structure for frontend and backend
+You'll need Node.js, Python, and an OpenAI API key.
 
----
-
-## 🛠️ Installation & Usage
-
-### 1. Clone the repository
+**Backend:**
 
 ```bash
-git clone https://github.com/ariana-o0o/chatgpt-clone.git
-cd chatgpt-clone
+cd backend
+pip install -r requirements.txt
+
+# Copy .env.example to .env and add your OpenAI API key
+cp .env.example .env
+
+# Start the server
+uvicorn server:app --reload --port 8000
 ```
 
-### 2. Frontend Setup
+**Frontend:**
 
 ```bash
 cd frontend
@@ -37,25 +54,24 @@ npm install
 npm run dev
 ```
 
-### 3. Backend Setup
-
-```bash
-cd backend
-pip install -r requirements.txt
-uvicorn server:app --reload --port 8000
-```
+Then go to http://localhost:5173
 
 ---
 
-## TODO / Roadmap
+## What I Learned
 
-- Further backend development (possibly using another programming language)
-- Complete the frontend UI
-- Improve styles and design
-- Add more features
+- How to work with streaming APIs
+- Database design and SQLite
+- State management in React
+- Building responsive UIs
+- Handling real-time data
+- Working with external APIs
 
----
+## Things That Could Be Better
 
-## ⚠️ Project Status
+This is still a learning project, so there are definitely things I'd improve:
 
-This project is not yet complete and is primarily meant as a practice and learning project. The main goal was to gain experience rather than build a finished product.
+- Better error handling
+- User authentication
+- More advanced features
+- Better mobile experience

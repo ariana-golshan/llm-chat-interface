@@ -31,20 +31,23 @@ function ModelDropdown({
   return (
     <div
       ref={dropdownRef}
-      className="absolute top-9 right-0 mt-2 w-[140px] text-center bg-white border border-gray-300 rounded-xl shadow-lg overflow-hidden z-10"
+      className="absolute top-9 right-0 mt-2 w-[150px] text-center bg-white border border-gray-300 rounded-xl shadow-lg overflow-hidden  z-10"
+      customStyle={{ background: "transparent", margin: 0 }}
     >
-      {models.map((model) => (
-        <div
-          key={model}
-          onClick={() => {
-            setSelectedModel(model);
-            setOpen(false);
-          }}
-          className="p-2 m-1 rounded-lg hover:bg-gray-200 cursor-pointer duration-200"
-        >
-          {model}
-        </div>
-      ))}
+      <div className="overflow-y-auto h-40 scrollbar-thin">
+        {models.map((model) => (
+          <div
+            key={model}
+            onClick={() => {
+              setSelectedModel(model);
+              setOpen(false);
+            }}
+            className="p-2 m-1 rounded-lg hover:bg-gray-200 cursor-pointer duration-200"
+          >
+            {model}
+          </div>
+        ))}
+      </div>
     </div>
   );
 }

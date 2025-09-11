@@ -1,14 +1,28 @@
-function Sidebar() {
+function Sidebar({
+  startNewChat,
+  chats,
+  currentChatId,
+  switchToChat,
+  expanded,
+  toggleSidebar,
+}) {
   return (
     <div
-      className="hidden border-r-2 px-1.5 py-4 border-gray-300/30 md:flex flex-col items-center fixed top-0 left-0 h-full z-30
-    "
+      className={`border-r-2 px-1.5 py-4 border-gray-300/30 flex flex-col fixed top-0 left-0 h-full z-30 transition-all duration-300 ${
+        expanded ? "w-64" : "w-16"
+      }`}
     >
-      <button className="mb-7">
+      <button
+        onClick={toggleSidebar}
+        className="flex justify-center mb-7 hover:bg-gray-100 p-2 rounded-lg transition-colors"
+      >
         <img src="../../openai.svg" alt="ChatGPT Logo" className="size-6" />
       </button>
-      <div className="flex flex-col items-center">
-        <button className="hover:bg-black/5 w-10 h-10 p-2.5 rounded-xl duration-100">
+      <div className="flex flex-col items-center mb-4">
+        <button
+          onClick={startNewChat}
+          className="hover:bg-black/5 w-10 h-10 p-2.5 rounded-xl duration-100"
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
@@ -57,6 +71,35 @@ function Sidebar() {
           </svg>
         </button>
       </div>
+
+      {/* Chat list - only show when expanded */}
+      {expanded && (
+        <div className="flex flex-col w-full space-y-2 overflow-y-auto">
+          {Object.entries(chats)
+            .sort(([a], [b]) => b.localeCompare(a)) // Sort by chatId (timestamp) descending
+            .map(([chatId, messages]) => {
+              const firstMessage =
+                messages.find((m) => m.sender === "user")?.text || "New Chat";
+              const preview =
+                firstMessage.slice(0, 30) +
+                (firstMessage.length > 30 ? "..." : "");
+
+              return (
+                <button
+                  key={chatId}
+                  onClick={() => switchToChat(chatId)}
+                  className={`text-left p-2 rounded text-sm truncate ${
+                    chatId === currentChatId
+                      ? "bg-gray-200"
+                      : "hover:bg-gray-100"
+                  }`}
+                >
+                  {preview}
+                </button>
+              );
+            })}
+        </div>
+      )}
     </div>
   );
 }

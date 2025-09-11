@@ -11,7 +11,7 @@ function ChatInput({ value, onChange, onSend, isLoading, selectedModel }) {
   };
 
   return (
-    <div className="flex items-center justify-between gap-1 max-w-xs sm:max-w-md md:max-w-lg lg:max-w-3xl mx-auto border-2 px-3 py-2 rounded-full overflow-hidden bg-white shadow-md border-gray-300 focus-within:border-[#757575]">
+    <div className="flex items-center justify-between gap-1 max-w-sm sm:max-w-lg md:max-w-2xl lg:max-w-3xl mx-auto border-2 px-3 py-2 rounded-full overflow-hidden bg-white shadow-md border-gray-300 focus-within:border-[#757575]">
       <button className="hover:bg-gray-100 p-1.5 rounded-full duration-200">
         <svg
           xmlns="http://www.w3.org/2000/svg"

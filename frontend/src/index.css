@@ -34,3 +34,64 @@
     @apply bg-gray-50;
   }
 }
+
+@layer components {
+  .bot-message ul {
+    @apply list-disc mx-5 my-3 space-y-2 text-gray-700;
+  }
+
+  .bot-message ol {
+    @apply list-decimal px-6 my-4 space-y-2 text-gray-700;
+  }
+
+  .bot-message h1 {
+    @apply text-2xl font-bold text-gray-900 mt-8 mb-3;
+  }
+
+  .bot-message h2 {
+    @apply text-xl font-semibold text-gray-800 mt-8 mb-3;
+  }
+
+  .bot-message h3 {
+    @apply text-lg font-medium text-gray-700 mt-8 mb-3;
+  }
+
+  .bot-message p {
+    @apply text-gray-800 leading-relaxed mb-2;
+  }
+
+  .bot-message a {
+    @apply text-emerald-600 hover:underline;
+  }
+
+  .bot-message strong {
+    @apply text-gray-800 pt-3;
+  }
+
+  .bot-message code {
+    @apply bg-gray-200 rounded-[4px] px-1.5 py-[3px] font-mono text-sm;
+  }
+}
+
+@layer components {
+  .bot-message.persian-content table,
+  .bot-message.persian-content th,
+  .bot-message.persian-content td,
+  .bot-message.persian-content ul,
+  .bot-message.persian-content ol,
+  .bot-message.persian-content h1,
+  .bot-message.persian-content h2,
+  .bot-message.persian-content h3,
+  .bot-message.persian-content p,
+  .bot-message.persian-content strong,
+  .bot-message.persian-content div,
+  .bot-message.persian-content span {
+    @apply font-vazir;
+  }
+}
+
+@layer components {
+  .user-message p {
+    @apply text-gray-800 leading-relaxed;
+  }
+}

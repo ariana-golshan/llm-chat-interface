@@ -1,9 +1,9 @@
 import ModelSelector from "./ModelSelector/ModelSelector";
 
-function Header({ chatStrted, selectedModel, setSelectedModel }) {
+function Header({ chatStarted, selectedModel, setSelectedModel }) {
   const models = [
     "gpt-3.5-turbo",
-    "gpt-4",
+    // "gpt-4",
     "gpt-4-turbo",
     "gpt-4o-mini",
     "gpt-4o",
@@ -25,7 +25,7 @@ function Header({ chatStrted, selectedModel, setSelectedModel }) {
           setSelectedModel={setSelectedModel}
         />
 
-        {chatStrted && (
+        {chatStarted && (
           // Share and Export button after the chat starts
           <div className="flex items-center justify-center gap-1 px-2">
             {" "}

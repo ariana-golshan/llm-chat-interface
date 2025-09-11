@@ -4,6 +4,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import StreamingResponse
 from dotenv import load_dotenv
 import httpx
+from database import init_database, save_chat, save_message, get_chat_messages, get_all_chats
 
 load_dotenv()
 
@@ -23,7 +24,9 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-conversations = {}
+@app.on_event("startup")
+async def startup_event():
+    await init_database()
 
 
 async def ask_openai_stream(
@@ -39,7 +42,7 @@ async def ask_openai_stream(
         "messages": messages,
         "temperature": temperature,
         "max_tokens": max_tokens,
-        "stream": True,  # فعال کردن استریم
+        "stream": True,
     }
 
     async with httpx.AsyncClient(timeout=None) as client:
@@ -69,27 +72,64 @@ async def chat(payload: dict):
     if not user_message:
         raise HTTPException(status_code=400, detail="Message is required.")
 
-    if chat_id not in conversations:
-        conversations[chat_id] = [
-            {
-                "role": "system",
-                "content": """You are a helpful assistant that responds clearly and fully.
-                When providing tabular data, always return it in HTML format with <table> ... </table>.""",
-            }
-        ]
+    # Save chat and user message to database
+    await save_chat(chat_id)
+    await save_message(chat_id, "user", user_message)
+    
+    # Get conversation history from database
+    messages = await get_chat_messages(chat_id)
+    
+    # Add system message if this is a new chat
+    if len(messages) == 1:  # Only user message exists
+        system_message = {
+            "role": "system",
+            "content": """You are a helpful assistant that responds clearly and fully.
+            When providing tabular data, always return it in HTML format with <table> ... </table>."""
+        }
+        messages.insert(0, system_message)
 
-    conversations[chat_id].append({"role": "user", "content": user_message})
+    # Store the assistant's response
+    full_response = ""
 
     async def event_generator():
+        nonlocal full_response
         try:
-            async for chunk in ask_openai_stream(conversations[chat_id], model=model):
+            async for chunk in ask_openai_stream(messages, model=model):
+                full_response += chunk
                 yield chunk
         except httpx.HTTPStatusError as e:
             yield f"\n[HTTP Error {e.response.status_code}]: {e.response.text}"
         except Exception as e:
             yield f"\n[Other Error]: {str(e)}"
 
+        # Save the complete response to database
+        if full_response:
+            await save_message(chat_id, "assistant", full_response)
+
     return StreamingResponse(event_generator(), media_type="text/plain")
+
+
+@app.get("/api/chats")
+async def get_chats():
+    """Get all chats with previews"""
+    chats = await get_all_chats()
+    return {"chats": chats}
+
+
+@app.get("/api/chats/{chat_id}")
+async def get_chat(chat_id: str):
+    """Get messages for a specific chat"""
+    messages = await get_chat_messages(chat_id)
+    # Convert to frontend format
+    frontend_messages = []
+    for msg in messages:
+        if msg["role"] != "system":  # Skip system messages for frontend
+            frontend_messages.append({
+                "id": len(frontend_messages) + 1,
+                "text": msg["content"],
+                "sender": "user" if msg["role"] == "user" else "bot"
+            })
+    return {"messages": frontend_messages}
 
 
 # import os, json

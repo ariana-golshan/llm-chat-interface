@@ -15,7 +15,8 @@ function MarkdownRenderer({ content }) {
             <p
               className={`${
                 isPersian(text) ? "font-vazir" : "font-sans"
-              } text-gray-800 leading-relaxed mb-2`}
+              } text-gray-800 leading-relaxed`}
+              dir="auto"
             >
               {children}
             </p>
@@ -49,32 +50,59 @@ function MarkdownRenderer({ content }) {
 
         // Headings
         h1: ({ children }) => (
-          <h1 className="text-2xl font-bold text-gray-900 mt-8 mb-3">
+          <h1 className="text-2xl font-bold text-gray-900 mt-8 mb-3" dir="auto">
             {children}
           </h1>
         ),
         h2: ({ children }) => (
-          <h2 className="text-xl font-semibold text-gray-800 mt-8 mb-3">
+          <h2 className="text-xl font-semibold text-gray-800 mt-8 mb-3" dir="auto">
             {children}
           </h2>
         ),
         h3: ({ children }) => (
-          <h3 className="text-lg font-medium text-gray-700 mt-8 mb-3">
+          <h3 className="text-lg font-medium text-gray-700 mt-8 mb-3" dir="auto">
             {children}
           </h3>
         ),
 
         // Lists
-        ul: ({ children }) => (
-          <ul className="list-disc list-inside space-y-1 text-gray-700">
-            {children}
-          </ul>
-        ),
-        ol: ({ children }) => (
-          <ol className="list-decimal list-inside space-y-1 text-gray-700">
-            {children}
-          </ol>
-        ),
+        ul: ({ children }) => {
+          const listText = children?.toString() || "";
+          return (
+            <ul
+              className={`list-disc ml-6 space-y-2 text-gray-700 ${
+                isPersian(listText) ? "font-vazir" : "font-sans"
+              }`}
+              dir="auto"
+            >
+              {children}
+            </ul>
+          );
+        },
+        ol: ({ children }) => {
+          const listText = children?.toString() || "";
+          return (
+            <ol
+              className={`list-decimal ml-6 space-y-2 text-gray-700 ${
+                isPersian(listText) ? "font-vazir" : "font-sans"
+              }`}
+              dir="auto"
+            >
+              {children}
+            </ol>
+          );
+        },
+
+        // ul: ({ children }) => (
+        //   <ul className="list-disc list-inside space-y-1 text-gray-700">
+        //     {children}
+        //   </ul>
+        // ),
+        // ol: ({ children }) => (
+        //   <ol className="list-decimal list-inside space-y-1 text-gray-700">
+        //     {children}
+        //   </ol>
+        // ),
 
         // Links
         a: ({ href, children }) => (
@@ -83,19 +111,57 @@ function MarkdownRenderer({ content }) {
             target="_blank"
             rel="noopener noreferrer"
             className="text-emerald-600 hover:underline"
+            dir="auto"
           >
             {children}
           </a>
         ),
 
         // Table
-        table: ({ ...props }) => (
-          <table className="chat-table" dir="auto" {...props} />
-        ),
-        thead: ({ ...props }) => <thead {...props} />,
-        th: ({ ...props }) => <th {...props} />,
-        td: ({ ...props }) => <td {...props} />,
-        tbody: ({ ...props }) => <tbody {...props} />,
+        // Table
+        table: ({ children, ...props }) => {
+          const tableText = children?.toString() || "";
+          return (
+            <table
+              className={`chat-table ${
+                isPersian(tableText) ? "font-vazir" : "font-sans"
+              }`}
+              dir="auto"
+              {...props}
+            />
+          );
+        },
+
+        th: ({ children, ...props }) => {
+          const cellText = children?.toString() || "";
+          return (
+            <th
+              className={isPersian(cellText) ? "font-vazir" : "font-sans"}
+              {...props}
+            >
+              {children}
+            </th>
+          );
+        },
+        td: ({ children, ...props }) => {
+          const cellText = children?.toString() || "";
+          return (
+            <td
+              className={isPersian(cellText) ? "font-vazir" : "font-sans"}
+              {...props}
+            >
+              {children}
+            </td>
+          );
+        },
+
+        // table: ({ ...props }) => (
+        //   <table className="chat-table" dir="auto" {...props} />
+        // ),
+        // thead: ({ ...props }) => <thead {...props} />,
+        // th: ({ ...props }) => <th {...props} />,
+        // td: ({ ...props }) => <td {...props} />,
+        // tbody: ({ ...props }) => <tbody {...props} />,
       }}
     >
       {content}
