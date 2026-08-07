@@ -68,7 +68,7 @@ What I learned (concise)
 - State management patterns in React for conversational UIs.
 - Practical considerations for integrating external ML/LLM APIs.
 
-Limitations and honesty
+Limitations
 -----------------------
 This repository is an educational artifact and not a production system. Important limitations include:
 - No user authentication or access control is implemented — the app is single-user by design.
@@ -86,11 +86,6 @@ Potential next steps (research & engineering directions)
 - Add automated tests for backend endpoints and critical frontend flows.
 - Explore instrumentation (metrics, logs) and CI/CD for deployment.
 
-If you use this project for reference
-------------------------------------
-- Treat it as a learning example. Review and harden any code before using it in a shared or production environment.
-- If you reuse substantial parts of the code, please include attribution.
-
 Contributing
 ------------
 Contributions are welcome in the form of issues and pull requests. If you submit changes that improve security, reliability, or clarity, please include tests or a short explanation of the change.
@@ -98,7 +93,3 @@ Contributions are welcome in the form of issues and pull requests. If you submit
 License
 -------
 This repository is released under the MIT License.
-
-Contact
--------
-For questions about the implementation or to request clarifications for an application review, open an issue or contact the author via the GitHub profile.
