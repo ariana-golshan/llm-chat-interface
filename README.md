@@ -1,4 +1,4 @@
-# ChatGPT Clone
+# LLM Chat Interface
 
 Abstract
 --------
