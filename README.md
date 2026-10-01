@@ -56,6 +56,27 @@ npm run dev
 
 Open the frontend at the address printed by the dev server (commonly http://localhost:5173).
 
+How to run (Docker)
+--------------------
+Prerequisites: Docker and Docker Compose, and an OpenAI API key.
+
+```bash
+# Set your OpenAI API key
+cp backend/.env.example backend/.env
+# Edit backend/.env and set OPENAI_API_KEY
+
+# Build and start both services
+docker compose up --build
+```
+
+This starts two containers:
+- Backend (FastAPI) on `http://localhost:7000`
+- Frontend (built with Vite, served by nginx) on `http://localhost:7001`
+
+Non-default ports (7000/7001 instead of 8000/8001) are used to avoid clashing with other services commonly running on a dev machine. The backend's SQLite database is persisted in a named Docker volume (`backend-data`), so conversation history survives container restarts and rebuilds.
+
+To point the frontend at a different backend URL, pass `VITE_API_URL` as a build arg (see `frontend/.env.example`).
+
 Notes on configuration
 ----------------------
 - This project expects an OpenAI API key to be provided in the backend .env file. Do not commit secrets to version control.
