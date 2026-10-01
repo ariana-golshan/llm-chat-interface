@@ -1,8 +1,11 @@
 import aiosqlite
 import json
 from datetime import datetime
+import os
 
-DATABASE_PATH = "chatgpt.db"
+DATA_DIR = os.getenv("DATA_DIR", os.path.dirname(os.path.abspath(__file__)))
+os.makedirs(DATA_DIR, exist_ok=True)
+DATABASE_PATH = os.path.join(DATA_DIR, "chatgpt.db")
 
 async def init_database():
     """Initialize the database with required tables"""
