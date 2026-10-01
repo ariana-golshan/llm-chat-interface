@@ -1,0 +1,27 @@
+services:
+  backend:
+    build:
+      context: ./backend
+    container_name: llm-chat-backend
+    env_file:
+      - ./backend/.env
+    ports:
+      - "7000:7000"
+    volumes:
+      - backend-data:/app/data
+    restart: unless-stopped
+
+  frontend:
+    build:
+      context: ./frontend
+      args:
+        VITE_API_URL: http://localhost:7000
+    container_name: llm-chat-frontend
+    ports:
+      - "7001:7001"
+    depends_on:
+      - backend
+    restart: unless-stopped
+
+volumes:
+  backend-data:

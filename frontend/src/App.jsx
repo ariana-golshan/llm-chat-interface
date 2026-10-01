@@ -2,13 +2,14 @@ import { useState, useMemo, useEffect } from "react";
 import MainConversation from "./components/MainConversation";
 import Header from "./components/Header";
 import Sidebar from "./components/Sidebar";
+import { API_BASE_URL } from "./config";
 
 function App() {
   const [chatStarted, setChatStarted] = useState(false);
   const [selectedModel, setSelectedModel] = useState("gpt-4o-mini");
   const [chats, setChats] = useState({});
   const [currentChatId, setCurrentChatId] = useState(
-    () => "chat_" + Date.now()
+    () => "chat_" + Date.now(),
   );
   const [sidebarExpanded, setSidebarExpanded] = useState(false);
   // const [chatMessages, setChatMessages] = useState([]);
@@ -57,18 +58,20 @@ function App() {
   useEffect(() => {
     const loadChats = async () => {
       try {
-        const response = await fetch("http://localhost:8000/api/chats");
+        const response = await fetch(`${API_BASE_URL}/api/chats`);
         const data = await response.json();
-        
+
         // Convert database format to frontend format
         const chatsData = {};
         for (const chat of data.chats) {
           // Load messages for each chat
-          const messagesResponse = await fetch(`http://localhost:8000/api/chats/${chat.id}`);
+          const messagesResponse = await fetch(
+            `${API_BASE_URL}/api/chats/${chat.id}`,
+          );
           const messagesData = await messagesResponse.json();
           chatsData[chat.id] = messagesData.messages;
         }
-        
+
         setChats(chatsData);
       } catch (error) {
         console.error("Failed to load chats:", error);
